@@ -1,32 +1,61 @@
 namespace Library
 {
-    public class ZadanieOne
+    public class NumberSequence
     {
-        public void One()
+        public static void PrintNumberSequence()
         {
-            Console.Write("Введите число N: ");
-            int n = int.Parse(Console.ReadLine());
-            string result = string.Join(", ", Enumerable.Range(1, n));
+            Console.Write("Введите натуральное последнее число в последовательности: ");
+            int lastNumber;
+            try
+            {
+                lastNumber = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Ошибка: введенное значение не является натуральным числом.");
+                return;
+            }
+            if (lastNumber < 1)
+            {
+                Console.WriteLine("Ошибка: неккоректный ввод. Число не является натуральным");
+                return;
+            }
+            /*
+            for (int i = 1; i < lastNumber; i++)            
+                Console.Write(i + ", ");            
+            Console.Write(lastNumber + ".");
+            */
+            string result = string.Join(", ", Enumerable.Range(1, n)) + ".";
             Console.WriteLine(result);
         }
     }
-    public class ZadanieTwo
+    public class SquareWithHole
     {
-        public static void Two()
+        public static void PrintSquare()
         {
-            Console.Write("Введите нечетное число N: ");
-            int n = int.Parse(Console.ReadLine());
-            if (n % 2 == 0) // If N is an even number, exit the function.
+            Console.Write("Введите нечетную длину стороны квадрата большую, чем 3: ");
+            int sideLength;
+            try
             {
-                Console.WriteLine("Вы ввели четное N.");
+                sideLength = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Ошибка: введенное значение не является числом.");
                 return;
-            }            
-            for (int row = 1; row <= n; row++) {
-                for (int col = 1; col <= n; col++) {
-                    if (row == n / 2 + 1 && col == n / 2 + 1) Console.Write(" ");
-                    else Console.Write("#");                    
-                }
-                Console.WriteLine();
+            }
+            if (sideLength < 3 || sideLength % 2 == 0)
+            {
+                Console.WriteLine("Ошибка: неккоректный ввод. Длина стороны должна быть натуральным нечетным числом, большим чем 3.");
+                return;
+            }
+            int halfLength = sideLength / 2 + 1;
+            string rowString = new string('#', sideLength);
+            for (int row = 1; row <= sideLength; row++) {                
+                if (row == halfLength)
+                    Console.WriteLine(rowString.Substring(0, halfLength - 1) + " " + rowString.Substring(halfLength));
+                else 
+                    Console.WriteLine(rowString);
             }
         }
     }
